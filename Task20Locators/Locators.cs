@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace Task20
+namespace Task20Locators
 {
     public class Locators
     {
