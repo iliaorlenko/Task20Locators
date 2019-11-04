@@ -14,7 +14,6 @@ namespace Task20Locators
             ChromeDriver driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Url = "https://tut.by";
-
             Locators locators = new Locators();
 
             ICollection<IWebElement> aElements = driver.FindElements(locators.menuByTagName);
@@ -28,8 +27,10 @@ namespace Task20Locators
             driver.FindElement(locators.login).SendKeys("seleniumtraining@tut.by");
             driver.FindElement(locators.password).SendKeys("Task20OfTheTraining");
             driver.FindElement(locators.btnLogin).Click();
-
             Assert.True(driver.FindElement(locators.username).Text == "Selenium Csharp");
+
+            driver.Close();
+            driver.Quit();
         }
     }
 }
