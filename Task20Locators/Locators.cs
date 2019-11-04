@@ -4,11 +4,15 @@ namespace Task20Locators
 {
     public class Locators
     {
-        public By EnterLoginForm = By.ClassName("enter");
-        public By Login = By.CssSelector("input[type='text']");
-        public By Password = By.Name("password");
-        public By byId = By.Id("id");
-        public By byLinkText = By.LinkText("id");
-        public By byPartialTextLink = By.PartialLinkText("partialLink");
+        public By enterLoginForm = By.ClassName("enter");
+        public By login = By.CssSelector("input[type='text']");
+        public By password = By.Name("password");
+        public By geotargetById = By.Id("geotarget_top_selector");
+        public By townByLinkText = By.LinkText("Белоозерск");
+        public By tvProgramByPartialTextLink = By.PartialLinkText("-прогр");
+        public By menuByTagName = By.TagName("a");
+        public By searchByXpath = By.XPath("//input[@id='search_from_str']");
+        public By btnLogin = By.XPath("//input[@class='button auth__enter']");
+        public By username = By.XPath("//span[@class='uname']");
     }
 }
