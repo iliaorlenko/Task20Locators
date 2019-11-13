@@ -54,7 +54,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Locators.cs">
+    <Compile Include="Base\DriverContext.cs" />
+    <Compile Include="Base\TestBase.cs" />
+    <Compile Include="LandingPage.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="TutByTests.cs" />
