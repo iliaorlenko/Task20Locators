@@ -24,6 +24,18 @@ namespace Task20Locators.Base
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
         }
+
+        // Method to enable implicit wait
+        public static void TurnOnImplicitWait(int timeoutInSeconds = 3)
+        {
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
+        }
+
+        // Method to disable implicit wait
+        public static void TurnOffImplicitWait()
+        {
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
+        }
     }
 
     public enum BrowserType

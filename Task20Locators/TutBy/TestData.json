@@ -1,0 +1,16 @@
+{
+  "TestData": {
+    "Tests": [
+      {
+        "Login": "seleniumtraining@tut.by",
+        "Password": "Task20OfTheTraining",
+        "Username": "Selenium Csharp"
+      },
+      {
+        "Login": "seleniumtests@tut.by",
+        "Password": "123456789zxcvbn",
+        "Username": "Selenium Test"
+      }
+    ]
+  }
+}
