@@ -1,11 +1,14 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Collections.Generic;
+using Task20Locators.TutBy;
 
 namespace Task20Locators.Base
 {
     public class TestBase
     {
+        public static string GetFromExcel(Dataset datasetName, Field field) => ExcelReader.GetFromExcel(datasetName, field);
+        
         public static void GoToUrl(string url = "https://tut.by")
         {
             DriverContext.Driver.Navigate().GoToUrl(url);
@@ -26,7 +29,6 @@ namespace Task20Locators.Base
         public void TestTearDown()
         {
             // General actions after each test
-
         }
 
         [OneTimeSetUp]
@@ -41,15 +43,9 @@ namespace Task20Locators.Base
             DriverContext.Driver.Close();
         }
 
-        public static IWebElement FindElement(By locator)
-        {
-            return DriverContext.Driver.FindElement(locator);
-        }
+        public static IWebElement FindElement(By locator) => DriverContext.Driver.FindElement(locator);
 
-        public static ICollection<IWebElement> FindElements(By locator)
-        {
-            return DriverContext.Driver.FindElements(locator);
-        }
+        public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
     }
 }
 
