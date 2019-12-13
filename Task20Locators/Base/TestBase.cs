@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Helpers.Task20Locators.Base;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Collections.Generic;
-using Task20Locators.TutBy;
 
 namespace Task20Locators.Base
 {
@@ -46,6 +46,20 @@ namespace Task20Locators.Base
         public static IWebElement FindElement(By locator) => DriverContext.Driver.FindElement(locator);
 
         public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
+    }
+
+    // Enums just to not passing data parameters as strings
+    public enum Dataset
+    {
+        FirstUser,
+        SecondUser
+    }
+
+    public enum Field
+    {
+        Login,
+        Password,
+        Username
     }
 }
 
