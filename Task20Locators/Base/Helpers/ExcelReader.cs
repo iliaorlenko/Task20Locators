@@ -48,7 +48,7 @@ namespace Helpers.Task20Locators.Base
         }
 
         // Retrieves data from Excel and put in into excelDataCollection object
-        public static void PopulateInCollection(string fileName, string tableName)
+        public static void CreateDataCollection(string fileName, string tableName)
         {
             DataTable table = ExcelToDataTable(fileName, tableName);
 

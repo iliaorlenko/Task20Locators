@@ -1,86 +1,64 @@
 ﻿using Helpers.Task20Locators.Base;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Diagnostics;
 using Task20Locators.Base;
+using SeleniumExtras.PageObjects;
 
 namespace Pages.Task20Locators.TutBy
 {
-    public static class LandingPage
+    public class LandingPage
     {
-        // Locators for tut.by landing page
-        public static By EnterLoginFormButton = By.ClassName("enter");
-        public static By LoginInput = By.CssSelector("input[type='text']");
-        public static By PasswordInput = By.Name("password");
-        public static By LoginButton = By.XPath("//input[@class='button auth__enter']");
-        public static By UsernameLabel = By.XPath("//span[@class='uname']");
-        public static By LogoutLink = By.XPath("//a[@class='button wide auth__reg']");
-        
-        // Method to find element along with explicit wait
-        public static IWebElement WaitFindElement(By locator)
-        {
-            // Set null as a default value for element expected to return
-            IWebElement expectedElement = null;
+        // Page elements for tut.by landing page
+        [FindsBy(How = How.ClassName, Using = "enter")]
+        public IWebElement EnterLoginFormButton;
 
-            // Disable implicit wait in order to don't mix with explicit wait 
-            DriverContext.TurnOffImplicitWait();
+        [FindsBy(How = How.CssSelector, Using = "input[type='text']")]
+        public IWebElement LoginInput;
 
-            // Initialize instance of explicit wait 
-            WebDriverWait wait = new WebDriverWait(DriverContext.Driver, TimeSpan.FromSeconds(10));
+        [FindsBy(How = How.Name, Using = "password")]
+        public IWebElement PasswordInput;
 
-            // Set custom polling interval
-            wait.PollingInterval = TimeSpan.FromMilliseconds(200);
+        [FindsBy(How = How.XPath, Using = "//input[@class='button auth__enter']")]
+        public IWebElement LoginButton;
 
-            // Set condition for explicit wait
-            wait.Until(condition =>
-            {
-                try
-                {
-                    expectedElement = DriverContext.Driver.FindElement(locator);
-                    return expectedElement.Displayed;
-                }
-                catch (StaleElementReferenceException ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    return false;
-                }
-                catch (NoSuchElementException ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    return false;
-                }
-            });
+        [FindsBy(How = How.XPath, Using = "//span[@class='uname']")]
+        public IWebElement UsernameLabel;
 
-            // Turn implicit wait back on
-            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-
-            // Return expected element
-            return expectedElement;
-        }
+        [FindsBy(How = How.XPath, Using = "//a[@class='button wide auth__reg']")]
+        public IWebElement LogoutLink;
 
         // Method to go to tut.by landing page
-        public static void OpenLandingPage() => TestBase.GoToUrl();
+        public LandingPage OpenLandingPage()
+        {
+            TestBase.GoToUrl();
+            PageFactory.InitElements(DriverContext.Driver, this);
+            return this;
+        }
 
         // Method to open login form
-        public static void OpenLoginForm() => TestBase.FindElement(EnterLoginFormButton).Click();
+        public LandingPage OpenLoginForm()
+        {
+            EnterLoginFormButton.Click();
+            return this;
+        }
 
         // Method to login either with credentials from one dataset of from different datasets
-        public static void SubmitLoginForm(Dataset loginDataset, Dataset? passwordDataset = null)
+        public LandingPage SubmitLoginForm(Dataset loginDataset, Dataset? passwordDataset = null)
         {
             if (passwordDataset == null)
                 passwordDataset = loginDataset;
 
-            TestBase.FindElement(LoginInput).SendKeys(ExcelReader.GetFromExcel(loginDataset, Field.Login));
-            TestBase.FindElement(PasswordInput).SendKeys(ExcelReader.GetFromExcel((Dataset)passwordDataset, Field.Password));
-            TestBase.FindElement(LoginButton).Click();
+            LoginInput.SendKeys(ExcelReader.GetFromExcel(loginDataset, Field.Login));
+            PasswordInput.SendKeys(ExcelReader.GetFromExcel((Dataset)passwordDataset, Field.Password));
+            LoginButton.Click();
+            return this;
         }
 
         // Method to logout
-        public static void Logout()
+        public LandingPage Logout()
         {
-            TestBase.FindElement(UsernameLabel).Click();
-            TestBase.FindElement(LogoutLink).Click();
+            UsernameLabel.Click();
+            LogoutLink.Click();
+            return this;
         }
     }
 }
