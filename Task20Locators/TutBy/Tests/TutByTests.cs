@@ -23,6 +23,8 @@ namespace Tests.Task20Locators.TutBy
             Landing.OpenLoginForm()
                 .SubmitLoginForm(Dataset.FirstUser);
 
+            TakeScreenshot();
+
             Assert.True(Landing.UsernameLabel.Text == GetFromExcel(Dataset.FirstUser, Field.Username), message: "Actual username label is not matched to expected.");
 
             Landing.Logout();
@@ -35,7 +37,10 @@ namespace Tests.Task20Locators.TutBy
                 .SubmitLoginForm(Dataset.SecondUser)
                 .Logout();
 
+            TakeScreenshot();
+
             Assert.True(Landing.EnterLoginFormButton.Displayed, message: "Enter login form button is not displayed.");
+
         }
     }
 }
