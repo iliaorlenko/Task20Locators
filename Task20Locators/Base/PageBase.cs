@@ -1,12 +1,13 @@
-﻿using System;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task20Locators.Base
 {
-    class PageBase
+    public class PageBase
     {
+        public static IWebElement FindElement(By locator) => DriverContext.Driver.FindElement(locator);
+
+        public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
     }
 }

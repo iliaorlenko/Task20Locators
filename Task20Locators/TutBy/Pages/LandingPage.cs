@@ -7,16 +7,20 @@ using Task20Locators.Base;
 
 namespace Pages.Task20Locators.TutBy
 {
-    public static class LandingPage
+    public class LandingPage : PageBase
     {
         // Locators for tut.by landing page
-        public static By EnterLoginFormButton = By.ClassName("enter");
-        public static By LoginInput = By.CssSelector("input[type='text']");
-        public static By PasswordInput = By.Name("password");
-        public static By LoginButton = By.XPath("//input[@class='button auth__enter']");
-        public static By UsernameLabel = By.XPath("//span[@class='uname']");
-        public static By LogoutLink = By.XPath("//a[@class='button wide auth__reg']");
-        
+        public readonly static By EnterLoginFormButtonLocator = By.ClassName("enter");
+        public readonly static By LoginInputLocator = By.CssSelector("input[type='text']");
+        public readonly static By PasswordInputLocator = By.Name("password");
+        public readonly static By LoginButtonLocator = By.XPath("//input[@class='button auth__enter']");
+        public readonly static By UsernameLabelLocator = By.XPath("//span[@class='uname']");
+        public readonly static By LogoutLinkLocator = By.XPath("//a[@class='button wide auth__reg']");
+
+        // Prepared IWebElements for assertions
+        public IWebElement UsernameLabel => WaitFindElement(EnterLoginFormButtonLocator);
+        public IWebElement EnterLoginFormButton => WaitFindElement(EnterLoginFormButtonLocator);
+
         // Method to find element along with explicit wait
         public static IWebElement WaitFindElement(By locator)
         {
@@ -60,27 +64,42 @@ namespace Pages.Task20Locators.TutBy
         }
 
         // Method to go to tut.by landing page
-        public static void OpenLandingPage() => TestBase.GoToUrl();
+        public LandingPage OpenLandingPage()
+        {
+            TestBase.GoToUrl();
+
+            return new LandingPage();
+        }
 
         // Method to open login form
-        public static void OpenLoginForm() => TestBase.FindElement(EnterLoginFormButton).Click();
+        public LandingPage OpenLoginForm()
+        {
+            WaitFindElement(EnterLoginFormButtonLocator).Click();
 
+            return this;
+        }
         // Method to login either with credentials from one dataset of from different datasets
-        public static void SubmitLoginForm(Dataset loginDataset, Dataset? passwordDataset = null)
+        public LandingPage SubmitLoginForm(Dataset loginDataset, Dataset? passwordDataset = null)
         {
             if (passwordDataset == null)
+            {
                 passwordDataset = loginDataset;
+            }                
 
-            TestBase.FindElement(LoginInput).SendKeys(ExcelReader.GetFromExcel(loginDataset, Field.Login));
-            TestBase.FindElement(PasswordInput).SendKeys(ExcelReader.GetFromExcel((Dataset)passwordDataset, Field.Password));
-            TestBase.FindElement(LoginButton).Click();
+            WaitFindElement(LoginInputLocator).SendKeys(ExcelReader.GetFromExcel(loginDataset, Field.Login));
+            WaitFindElement(PasswordInputLocator).SendKeys(ExcelReader.GetFromExcel((Dataset)passwordDataset, Field.Password));
+            WaitFindElement(LoginButtonLocator).Click();
+
+            return this;
         }
 
         // Method to logout
-        public static void Logout()
+        public LandingPage Logout()
         {
-            TestBase.FindElement(UsernameLabel).Click();
-            TestBase.FindElement(LogoutLink).Click();
+            WaitFindElement(UsernameLabelLocator).Click();
+            WaitFindElement(LogoutLinkLocator).Click();
+
+            return this;
         }
     }
 }

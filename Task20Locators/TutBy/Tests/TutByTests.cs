@@ -1,7 +1,6 @@
 ﻿using Helpers.Task20Locators.Base;
 using NUnit.Framework;
 using Pages.Task20Locators.TutBy;
-using System.Collections;
 using Task20Locators.Base;
 
 namespace Tests.Task20Locators.TutBy
@@ -9,35 +8,34 @@ namespace Tests.Task20Locators.TutBy
     [TestFixture]
     public class TutByTests : TestBase
     {
-        public static IEnumerable LoginTestsData
-        {
-            get { return JsonReader.GetLoginTestsData(); }
-        }
+        // Landing page instance initialization
+        LandingPage Landing; 
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
+            Landing = new LandingPage();
+            Landing.OpenLandingPage();
             ExcelReader.PopulateInCollection(ExcelReader.excelPath, ExcelReader.loginTestsTableName);
-            LandingPage.OpenLandingPage();
         }
 
         [Test]
         public void LoginWithValidCredentialsTest()
         {
-            LandingPage.OpenLoginForm();
-            LandingPage.SubmitLoginForm(Dataset.FirstUser);
+            Landing.OpenLoginForm()
+                .SubmitLoginForm(Dataset.FirstUser);
 
-            Assert.True(LandingPage.WaitFindElement(LandingPage.UsernameLabel).Text == GetFromExcel(Dataset.FirstUser, Field.Username), message: "Actual username label is not matched to expected.");
+            Assert.True(Landing.UsernameLabel.Text == GetFromExcel(Dataset.FirstUser, Field.Username), message: "Actual username label is not matched to expected.");
         }
 
         [Test]
         public void LogoutTest()
         {
-            LandingPage.OpenLoginForm();
-            LandingPage.SubmitLoginForm(Dataset.SecondUser);
-            LandingPage.Logout();
-
-            Assert.True(LandingPage.WaitFindElement(LandingPage.EnterLoginFormButton).Displayed, message: "Enter login form button is not displayed.");
+            Landing.OpenLoginForm()
+                .SubmitLoginForm(Dataset.SecondUser)
+                .Logout();
+            
+            Assert.True(Landing.EnterLoginFormButton.Displayed, message: "Enter login form button is not displayed.");
         }
     }
 }

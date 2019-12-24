@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Task20Locators.Base
 {
+    [SetUpFixture]
     public class TestBase
     {
         public static string GetFromExcel(Dataset datasetName, Field field) => ExcelReader.GetFromExcel(datasetName, field);
@@ -19,18 +20,6 @@ namespace Task20Locators.Base
             DriverContext.Driver.Navigate().Back();
         }
 
-        [SetUp]
-        public void TestSetUp()
-        {
-            // General actions before each test
-        }
-
-        [TearDown]
-        public void TestTearDown()
-        {
-            // General actions after each test
-        }
-
         [OneTimeSetUp]
         public static void GlobalSetup()
         {
@@ -43,9 +32,17 @@ namespace Task20Locators.Base
             DriverContext.Driver.Close();
         }
 
-        public static IWebElement FindElement(By locator) => DriverContext.Driver.FindElement(locator);
+        [SetUp]
+        public void TestSetUp()
+        {
+            // General actions before each test
+        }
 
-        public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
+        [TearDown]
+        public void TestTearDown()
+        {
+            // General actions after each test
+        }
     }
 
     // Enums just to not passing data parameters as strings
