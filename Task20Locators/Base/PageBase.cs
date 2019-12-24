@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task20Locators.Base
 {
-    class PageBase
+    public class PageBase
     {
     }
 }

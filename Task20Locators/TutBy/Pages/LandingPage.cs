@@ -45,7 +45,9 @@ namespace Pages.Task20Locators.TutBy
         public LandingPage SubmitLoginForm(Dataset loginDataset, Dataset? passwordDataset = null)
         {
             if (passwordDataset == null)
+            {
                 passwordDataset = loginDataset;
+            }                
 
             LoginInput.SendKeys(ExcelReader.GetFromExcel(loginDataset, Field.Login));
             PasswordInput.SendKeys(ExcelReader.GetFromExcel((Dataset)passwordDataset, Field.Password));
