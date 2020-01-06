@@ -36,6 +36,10 @@ namespace Task20Locators.Base
         public void TestSetUp()
         {
             // General actions before each test
+            if(TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                
+            }
         }
 
         [TearDown]

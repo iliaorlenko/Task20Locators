@@ -1,4 +1,5 @@
-﻿using Helpers.Task20Locators.Base;
+﻿using Allure.NUnit.Attributes;
+using Helpers.Task20Locators.Base;
 using NUnit.Framework;
 using Pages.Task20Locators.TutBy;
 using Task20Locators.Base;
@@ -20,6 +21,13 @@ namespace Tests.Task20Locators.TutBy
         }
 
         [Test]
+        [
+            AllureSubSuite("Login tests"),
+            AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
+            AllureLink(""),
+            AllureTest("Log in with valid credentials"),
+            AllureOwner("Ilya Orlenko")
+        ]
         public void LoginWithValidCredentialsTest()
         {
             Landing.OpenLoginForm()
@@ -29,6 +37,13 @@ namespace Tests.Task20Locators.TutBy
         }
 
         [Test]
+        [
+            AllureSubSuite("Login tests"), 
+            AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
+            AllureLink(""),
+            AllureTest("Log out of the account"),
+            AllureOwner("Ilya Orlenko")
+        ]
         public void LogoutTest()
         {
             Landing.OpenLoginForm()
