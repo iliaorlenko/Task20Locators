@@ -75,8 +75,6 @@ namespace Tests.Task20Locators.TutBy
             {
                 Landing.Logout();
             }
-
-            Landing.Logout();
         }
     }
 }
