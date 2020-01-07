@@ -76,8 +76,6 @@ namespace Tests.Task20Locators.TutBy
                 Landing.Logout();
             }
 
-            Assert.AreEqual(Landing.UsernameLabel.Text, GetFromExcel(Dataset.FirstUser, Field.Username) + "Fail", message: "Actual username label is not matched to expected.");
-
             Landing.Logout();
         }
     }
