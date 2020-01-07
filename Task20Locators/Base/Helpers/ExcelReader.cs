@@ -12,7 +12,7 @@ namespace Helpers.Task20Locators.Base
     public static class ExcelReader
     {
         // Path to the excel file with test data
-        public static string excelPath = Directory.GetParent(Directory.GetParent(Directory.GetParent(AppContext.BaseDirectory).ToString()).ToString()).ToString() + "\\TutBy\\TrainingTestData.xlsx";
+        public static string excelPath = Settings.baseDir + @"\TutBy\TrainingTestData.xlsx";
 
         // Table name in Excel file
         public static string loginTestsTableName = "LoginTests";
@@ -48,7 +48,7 @@ namespace Helpers.Task20Locators.Base
         }
 
         // Retrieves data from Excel and put in into excelDataCollection object
-        public static void PopulateInCollection(string fileName, string tableName)
+        public static void CreateDataCollection(string fileName, string tableName)
         {
             DataTable table = ExcelToDataTable(fileName, tableName);
 
@@ -103,5 +103,19 @@ namespace Helpers.Task20Locators.Base
         public string datasetName { get; set; }
         public string columnName { get; set; }
         public string cellValue { get; set; }
+    }
+
+    // Enums just to not passing data parameters as strings
+    public enum Dataset
+    {
+        FirstUser,
+        SecondUser
+    }
+
+    public enum Field
+    {
+        Login,
+        Password,
+        Username
     }
 }

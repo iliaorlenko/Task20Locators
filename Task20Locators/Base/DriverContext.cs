@@ -7,6 +7,9 @@ namespace Task20Locators.Base
 {
     public class DriverContext
     {
+        public static string Browser;
+        public static string OS = "Windows 10";
+
         public static IWebDriver Driver { get; protected set; }
 
         public static void InitializeDriver(BrowserType browserType = BrowserType.Chrome)
@@ -14,9 +17,11 @@ namespace Task20Locators.Base
             switch (browserType)
             {
                 case BrowserType.Chrome:
+                    Browser = "Chrome";
                     Driver = new ChromeDriver();
                     break;
                 case BrowserType.Firefox:
+                    Browser = "Firefox";
                     Driver = new FirefoxDriver();
                     break;
             }

@@ -9,24 +9,23 @@ namespace Tests.Task20Locators.TutBy
     [TestFixture]
     public class TutByTests : TestBase
     {
-        // Landing page instance initialization
         LandingPage Landing; 
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
+            ExcelReader.CreateDataCollection(ExcelReader.excelPath, ExcelReader.loginTestsTableName);
             Landing = new LandingPage();
             Landing.OpenLandingPage();
-            ExcelReader.PopulateInCollection(ExcelReader.excelPath, ExcelReader.loginTestsTableName);
         }
 
-        [Test]
+        [Test, Description("Login with valid credentials")]
         [
-            AllureSubSuite("Login tests"),
+            AllureSubSuite("Login functionality tests"),
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
-            AllureLink(""),
-            AllureTest("Log in with valid credentials"),
-            AllureOwner("Ilya Orlenko")
+            AllureLink("ID-1"),
+            AllureTest("Login with valid credentials"),
+            AllureOwner("Ilya Orlenko"),
         ]
         public void LoginWithValidCredentialsTest()
         {
@@ -34,14 +33,16 @@ namespace Tests.Task20Locators.TutBy
                 .SubmitLoginForm(Dataset.FirstUser);
 
             Assert.True(Landing.UsernameLabel.Text == GetFromExcel(Dataset.FirstUser, Field.Username), message: "Actual username label is not matched to expected.");
+
+            Landing.Logout();
         }
 
         [Test]
         [
-            AllureSubSuite("Login tests"), 
+            AllureSubSuite("Login functionality tests"), 
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
-            AllureLink(""),
-            AllureTest("Log out of the account"),
+            AllureLink("ID-2"),
+            AllureTest("Logout from the account"),
             AllureOwner("Ilya Orlenko")
         ]
         public void LogoutTest()
@@ -51,6 +52,33 @@ namespace Tests.Task20Locators.TutBy
                 .Logout();
             
             Assert.True(Landing.EnterLoginFormButton.Displayed, message: "Enter login form button is not displayed.");
+        }
+
+        [Test]
+        [
+            AllureSubSuite("Login functionality tests"),
+            AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
+            AllureLink("ID-3"),
+            AllureTest("Failure simulation test"),
+            AllureOwner("Ilya Orlenko")
+        ]
+        public void FailTest()
+        {
+            Landing.OpenLoginForm()
+                .SubmitLoginForm(Dataset.FirstUser);
+
+            try
+            {
+                Assert.AreEqual(Landing.UsernameLabel.Text, GetFromExcel(Dataset.FirstUser, Field.Username) + "Fail", message: "Actual username label is not matched to expected.");
+            }
+            finally
+            {
+                Landing.Logout();
+            }
+
+            Assert.AreEqual(Landing.UsernameLabel.Text, GetFromExcel(Dataset.FirstUser, Field.Username) + "Fail", message: "Actual username label is not matched to expected.");
+
+            Landing.Logout();
         }
     }
 }

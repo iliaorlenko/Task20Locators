@@ -1,11 +1,11 @@
 ﻿{
   "allure": {
-    "directory": "allure-results",
+    "directory": "C:\\allure-results",
     "allowEmptySuites": true,
     "enableParameters": true,
     "allowLocalHistoryTrend": false,
     "links": [
-
+      "https://test.com"
     ] 
   },
 
@@ -42,10 +42,10 @@
   ],
 
   "environment": {
-    "TestVariable": "This is value of test variable. Remove it from allureConfig.json",
     "runtime": [
       {
-        "OS": "System.Environment.OS",
+        "Browser": "Task20Locators.Base.DriverContext.Browser",
+        "OS": "Task20Locators.Base.DriverContext.OS",
         "AllureVersion": "Allure.Commons.AllureLifecycle.AllureVersion"
       }
     ]

@@ -74,6 +74,9 @@
     <Reference Include="nunit3-console">
       <HintPath>..\packages\NUnit.ConsoleRunner.3.10.0\tools\nunit3-console.exe</HintPath>
     </Reference>
+    <Reference Include="SeleniumExtras.PageObjects, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.PageObjects.3.11.0\lib\net45\SeleniumExtras.PageObjects.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -91,12 +94,16 @@
     <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver.Support, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\DriverContext.cs" />
     <Compile Include="Base\Helpers\ExcelReader.cs" />
     <Compile Include="Base\Helpers\JsonReader.cs" />
     <Compile Include="Base\PageBase.cs" />
+    <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\TestBase.cs" />
     <Compile Include="TutBy\Pages\LandingPage.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -105,7 +112,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="allureConfig.json" />
+    <None Include="allureConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="app.config" />
     <None Include="TutBy\TestData.json" />
     <None Include="packages.config" />
