@@ -1,9 +1,9 @@
 ﻿using Helpers.Task20Locators.Base;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Diagnostics;
 using Task20Locators.Base;
+using System;
+using OpenQA.Selenium.Support.UI;
+using System.Diagnostics;
 
 namespace Pages.Task20Locators.TutBy
 {
@@ -78,6 +78,7 @@ namespace Pages.Task20Locators.TutBy
 
             return this;
         }
+
         // Method to login either with credentials from one dataset of from different datasets
         public LandingPage SubmitLoginForm(Dataset loginDataset, Dataset? passwordDataset = null)
         {
@@ -96,8 +97,11 @@ namespace Pages.Task20Locators.TutBy
         // Method to logout
         public LandingPage Logout()
         {
-            WaitFindElement(UsernameLabelLocator).Click();
-            WaitFindElement(LogoutLinkLocator).Click();
+            if (UsernameLabel.Text != "Войти")
+            {
+                WaitFindElement(UsernameLabelLocator).Click();
+                WaitFindElement(LogoutLinkLocator).Click();
+            }
 
             return this;
         }
