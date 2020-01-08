@@ -11,6 +11,12 @@ namespace Tests.Task20Locators.TutBy
     {
         LandingPage Landing; 
 
+        [SetUp]
+        public void LoginTestsSetUp()
+        {
+            Landing.Logout();
+        }
+
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
@@ -67,14 +73,7 @@ namespace Tests.Task20Locators.TutBy
             Landing.OpenLoginForm()
                 .SubmitLoginForm(Dataset.FirstUser);
 
-            try
-            {
                 Assert.AreEqual(Landing.UsernameLabel.Text, GetFromExcel(Dataset.FirstUser, Field.Username) + "Fail", message: "Actual username label is not matched to expected.");
-            }
-            finally
-            {
-                Landing.Logout();
-            }
         }
     }
 }

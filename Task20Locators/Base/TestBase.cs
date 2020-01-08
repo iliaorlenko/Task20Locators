@@ -40,9 +40,15 @@ namespace Task20Locators.Base
         public void TestSetUp()
         {
             // General actions before each test
-            if(TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+        }
+
+        [TearDown]
+        public void TestTearDown()
+        {
+            // General actions after each test
+            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                
+                TakeScreenshot();
             }
         }
 

@@ -97,8 +97,11 @@ namespace Pages.Task20Locators.TutBy
         // Method to logout
         public LandingPage Logout()
         {
-            WaitFindElement(UsernameLabelLocator).Click();
-            WaitFindElement(LogoutLinkLocator).Click();
+            if (UsernameLabel.Text != "Войти")
+            {
+                WaitFindElement(UsernameLabelLocator).Click();
+                WaitFindElement(LogoutLinkLocator).Click();
+            }
 
             return this;
         }
