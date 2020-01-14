@@ -75,6 +75,14 @@ namespace Task20Locators.Base
                     //caps.AddMetadataSetting("os", Settings.os.ToString());
                     //caps.AddMetadataSetting("osVersion", Settings.osVersion.ToString());
 
+
+                    //mainOpts.AddAdditionalCapability("browser_name", Settings.browserName);
+                    //mainOpts.AddAdditionalCapability("browser_version", Settings.browserVersion);
+                    //mainOpts.AddAdditionalCapability("bstack:options", caps);
+                    //mainOpts.AddAdditionalCapability("os", "Windows");
+                    //mainOpts.AddAdditionalCapability("os_version", "8");
+
+
                     DesiredCapabilities capability = new DesiredCapabilities();
                     capability.SetCapability("os", "Windows");
                     capability.SetCapability("os_version", "8.1");
@@ -85,12 +93,6 @@ namespace Task20Locators.Base
                     capability.SetCapability("browserstack.user", "ilyaorlenko1");
                     capability.SetCapability("browserstack.key", "b7oqy11UFAU1HrPfUr1v");
 
-
-                    //mainOpts.AddAdditionalCapability("browser_name", Settings.browserName);
-                    //mainOpts.AddAdditionalCapability("browser_version", Settings.browserVersion);
-                    //mainOpts.AddAdditionalCapability("bstack:options", caps);
-                    //mainOpts.AddAdditionalCapability("os", "Windows");
-                    //mainOpts.AddAdditionalCapability("os_version", "8");
 
                     Driver = new RemoteWebDriver(Settings.hubUri, capability);
                     break;
