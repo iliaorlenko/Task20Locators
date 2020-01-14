@@ -12,8 +12,8 @@ namespace Task20Locators.Base
     public class DriverContext
     {
         public static IWebDriver Driver { get; protected set; }
-        //public static string Browser;
-        //public static string OS = "Windows 10";
+        public static string Browser;
+        public static string OS;
         //public static Uri VmHub = new Uri("http://localhost:4444/wd/hub");
         //public static Uri SauceLabHub = new Uri("http://ondemand.saucelabs.com:80/wd/hub");
         //public static Uri BrowserStackHub = new Uri($"http://{Settings.browserstackUser}:{Settings.browserstackKey}@hub-cloud.browserstack.com/wd/hub/");
@@ -84,8 +84,8 @@ namespace Task20Locators.Base
 
 
                     DesiredCapabilities capability = new DesiredCapabilities();
-                    capability.SetCapability("os", "Windows");
-                    capability.SetCapability("os_version", "8.1");
+                    capability.SetCapability("os", Settings.os.ToString());
+                    capability.SetCapability("os_version", Settings.osVersion.ToString());
                     capability.SetCapability("browser", Settings.browserName.ToString());
                     capability.SetCapability("browser_version", Settings.browserVersion.ToString());
                     capability.SetCapability("browserstack.local", "false");
