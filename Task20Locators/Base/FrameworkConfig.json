@@ -1,0 +1,21 @@
+{
+  "Environment": {
+    "Hub": "Browserstack",
+    "OS": "Windows",
+    "OsVersion": "8.1",
+    "BrowserType": "Firefox",
+    "BrowserVersion": "52.0"
+  },
+  "BrowserStackSettings": {
+    "User": "ilyaorlenko1",
+    "Key": "b7oqy11UFAU1HrPfUr1v",
+    "Uri": "http://{0}:{1}@hub-cloud.browserstack.com/wd/hub/"
+  },
+  "SauceLabsSettings": {
+    "User": "username",
+    "Key": "secretkey",
+    "Uri": "http://{0}:{1}@hub-cloud.browserstack.com/wd/hub/"
+  },
+  "VmUri": "http://localhost:4444/wd/hub",
+  "TutByUrl": "https://tut.by"
+}
