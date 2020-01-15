@@ -1,6 +1,6 @@
 {
   "Environment": {
-    "Hub": "Browserstack",
+    "Hub": "Local",
     "OS": "Windows",
     "OsVersion": "8.1",
     "BrowserType": "Firefox",
