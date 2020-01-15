@@ -3,8 +3,8 @@
     "Hub": "Local",
     "OS": "Windows",
     "OsVersion": "8.1",
-    "BrowserType": "Firefox",
-    "BrowserVersion": "52.0"
+    "BrowserType": "Chrome",
+    "BrowserVersion": "79.0"
   },
   "BrowserStackSettings": {
     "User": "ilyaorlenko1",
