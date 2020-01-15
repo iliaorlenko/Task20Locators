@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Task20Locators.Base
 {
-    [SetUpFixture]
+    //[SetUpFixture]
     public class TestBase : AllureReport
     {
         private static string AllureConfigDir = Path.GetDirectoryName(typeof(AllureLifecycle).Assembly.Location);
