@@ -36,6 +36,7 @@ namespace Task20Locators.Base
         public static void GlobalTeardown()
         {
             DriverContext.Driver.Close();
+            DriverContext.Driver.Quit();
         }
 
         [SetUp]
