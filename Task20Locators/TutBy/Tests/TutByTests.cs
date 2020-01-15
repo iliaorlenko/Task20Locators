@@ -29,7 +29,7 @@ namespace Tests.Task20Locators.TutBy
         [
             AllureSubSuite("Login functionality tests"),
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
-            AllureLink("ID-1"),
+            //AllureLink("ID-1"),
             AllureTest("Login with valid credentials"),
             AllureOwner("Ilya Orlenko"),
         ]
@@ -47,7 +47,7 @@ namespace Tests.Task20Locators.TutBy
         [
             AllureSubSuite("Login functionality tests"), 
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
-            AllureLink("ID-2"),
+            //AllureLink("ID-2"),
             AllureTest("Logout from the account"),
             AllureOwner("Ilya Orlenko")
         ]
@@ -64,7 +64,7 @@ namespace Tests.Task20Locators.TutBy
         [
             AllureSubSuite("Login functionality tests"),
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
-            AllureLink("ID-3"),
+            //AllureLink("ID-3"),
             AllureTest("Failure simulation test"),
             AllureOwner("Ilya Orlenko")
         ]
