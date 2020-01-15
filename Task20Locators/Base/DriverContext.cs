@@ -4,8 +4,6 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Task20Locators.Base
 {
