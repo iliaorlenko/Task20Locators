@@ -8,7 +8,7 @@
   },
   "BrowserStackSettings": {
     "User": "ilyaorlenko1",
-    "Key": "b7oqy11UFAU1HrPfUr1v",
+    "Key": "FwsCFZC9ZqKqdZfxxx2b",
     "Uri": "http://{0}:{1}@hub-cloud.browserstack.com/wd/hub/"
   },
   "SauceLabsSettings": {

@@ -12,23 +12,24 @@ namespace Task20Locators.Base
         // Deserialized FrameworkConfig.json
         private static Configuration configuration = JsonConvert.DeserializeObject<Configuration>(new StreamReader(baseDir + "/Base/FrameworkConfig.json").ReadToEnd());
 
-        public static OS os => configuration.Environment.OS;
-        public static string osVersion => configuration.Environment.OsVersion;
-        public static BrowserName browserName => configuration.Environment.BrowserType;
-        public static string browserVersion => configuration.Environment.BrowserVersion;
+        //public static OS os => configuration.Environment.OS;
+        //public static string osVersion => configuration.Environment.OsVersion;
+        //public static BrowserName browserName => configuration.Environment.BrowserType;
+        //public static string browserVersion => configuration.Environment.BrowserVersion;
         public static string tutByUrl => configuration.TutByUrl;
-        public static Hub hub => configuration.Environment.Hub;
+
+        public static Base.Environment env;
         public static Uri hubUri
         {
             get
             {
-                switch (hub)
+                switch (env)
                 {
-                    case Hub.BrowserStack:
+                    case Base.Environment.BrowserStack:
                         return new Uri(string.Format(configuration.BrowserStack.Uri, configuration.BrowserStack.User, configuration.BrowserStack.Key));
-                    case Hub.SauceLabs:
+                    case Base.Environment.SauceLabs:
                         return new Uri(string.Format(configuration.SauceLabs.Uri, configuration.SauceLabs.User, configuration.SauceLabs.Key));
-                    case Hub.VM:
+                    case Base.Environment.VM:
                         return new Uri(configuration.VmUri);
                     default:
                         return null;
@@ -42,10 +43,7 @@ namespace Task20Locators.Base
             public BrowserStack BrowserStack { get; set; }
 
             [JsonProperty("SauceLabsSettings")]
-            public BrowserStack SauceLabs { get; set; }
-
-            [JsonProperty("Environment")]
-            public Env Environment { get; set; }
+            public SauceLabs SauceLabs { get; set; }
 
             [JsonProperty("VmUri")]
             public string VmUri { get; set; }
@@ -53,26 +51,7 @@ namespace Task20Locators.Base
             [JsonProperty("TutByUrl")]
             public string TutByUrl { get; set; }
         }
-        private class Env
-        {
-            [JsonProperty("Hub")]
-            public Hub Hub { get; set; }
 
-            [JsonProperty("HubUrl")]
-            public string HubUrl { get; set; }
-
-            [JsonProperty("OS")]
-            public OS OS { get; set; }
-
-            [JsonProperty("OsVersion")]
-            public string OsVersion { get; set; }
-
-            [JsonProperty("BrowserType")]
-            public BrowserName BrowserType { get; set; }
-
-            [JsonProperty("BrowserVersion")]
-            public string BrowserVersion { get; set; }
-        }
         private class BrowserStack
         {
             [JsonProperty("User")]
@@ -106,12 +85,6 @@ namespace Task20Locators.Base
     }
 
     public enum Environment
-    {
-        Local,
-        Remote
-    }
-
-    public enum Hub
     {
         Local,
         VM,

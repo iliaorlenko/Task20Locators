@@ -2,9 +2,16 @@
 using Helpers.Task20Locators.Base;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Safari;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Task20Locators.Base.Helpers;
 
 namespace Task20Locators.Base
 {
@@ -27,7 +34,19 @@ namespace Task20Locators.Base
         [OneTimeSetUp]
         public static void GlobalSetup()
         {
-            DriverContext.InitializeDriver();
+            string environment = TestContext.Parameters.Get("env", "Local");
+            string browserName = TestContext.Parameters.Get("browser", "Chrome");
+            string browserVersion = TestContext.Parameters.Get("brVersion", "79");
+            string os = TestContext.Parameters.Get("os", "Windows");
+            string osVersion = TestContext.Parameters.Get("osVersion", "10");
+
+            Environment env = (Environment)Enum.Parse(typeof(Environment), environment, true);
+            BrowserName browser = (BrowserName)Enum.Parse(typeof(BrowserName), browserName, true);
+            OS opSys = (OS)Enum.Parse(typeof(OS), os, true);
+
+            DriverContext.InitializeDriver(Environment.BrowserStack, browser);
+
+            //DriverContext.InitializeDriver(Environment.BrowserStack, BrowserName.Chrome);
         }
 
         [OneTimeTearDown]
@@ -40,7 +59,17 @@ namespace Task20Locators.Base
         [SetUp]
         public void TestSetUp()
         {
-            // General actions before each test
+            //string environment = TestContext.Parameters.Get("env", "Local");
+            //string browserName = TestContext.Parameters.Get("browser", "Chrome");
+            //string browserVersion = TestContext.Parameters.Get("brVersion", "79");
+            //string os = TestContext.Parameters.Get("os", "Windows");
+            //string osVersion = TestContext.Parameters.Get("osVersion", "10");
+
+            //Environment env = (Environment)Enum.Parse(typeof(Environment), environment, true);
+            //BrowserName browser = (BrowserName)Enum.Parse(typeof(BrowserName), browserName, true);
+            //OS opSys = (OS)Enum.Parse(typeof(OS), os, true);
+
+            //DriverContext.InitializeDriver(env, browser);
         }
 
         [TearDown]
