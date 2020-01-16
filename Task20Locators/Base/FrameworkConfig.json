@@ -4,7 +4,7 @@
     "OS": "Windows",
     "OsVersion": "8.1",
     "BrowserType": "Chrome",
-    "BrowserVersion": "79.0"
+    "BrowserVersion": "11"
   },
   "BrowserStackSettings": {
     "User": "ilyaorlenko1",

@@ -2,100 +2,96 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Safari;
 using System;
+using Task20Locators.Base.Helpers;
 
 namespace Task20Locators.Base
 {
     public class DriverContext
     {
-        public static IWebDriver Driver { get; protected set; }
+        // Driver declaration
+        public static IWebDriver Driver { get; private set; }
+
+        private static DriverOptions options = null;
+
+        // Variables for Allure
         public static string Browser;
         public static string OS;
-        //public static Uri VmHub = new Uri("http://localhost:4444/wd/hub");
-        //public static Uri SauceLabHub = new Uri("http://ondemand.saucelabs.com:80/wd/hub");
-        //public static Uri BrowserStackHub = new Uri($"http://{Settings.browserstackUser}:{Settings.browserstackKey}@hub-cloud.browserstack.com/wd/hub/");
-        //public static DriverOptions Options;
-        //public static DriverOptions BrowserOptions = null;
-        //public static List<String, Object> browserstackOptions = new HashMap<String, Object>();
-
 
         public static void InitializeDriver()
         {
+            // Switch hub to know what env is going to be used
             switch (Settings.hub)
             {
+                // If local machine, then initialize one of the drivers
                 case Hub.Local:
                     switch (Settings.browserName)
                     {
-                        case BrowserType.Chrome:
+                        case BrowserName.Chrome:
                             Driver = new ChromeDriver();
                             break;
 
-                        case BrowserType.Firefox:
+                        case BrowserName.Edge:
+                            Driver = new EdgeDriver();
+                            break;
+
+                        case BrowserName.Firefox:
                             Driver = new FirefoxDriver();
                             break;
 
-                        case BrowserType.Edge:
-                            Driver = new EdgeDriver();
+                        case BrowserName.IE:
+                            Driver = new InternetExplorerDriver();
+                            break;
+
+                        case BrowserName.Safari:
+                            Driver = new SafariDriver();
                             break;
                     }
                     break;
 
+                // If remote environment, then add browser specific options first, then initialize remote driver
                 case Hub.BrowserStack:
                 case Hub.SauceLabs:
-
-                    //RemoteSessionSettings a = new RemoteSessionSettings();
-
-
-                    FirefoxOptions mainOpts = new FirefoxOptions()
-                    {
-                        UseLegacyImplementation = true
-                    };
-
-                    //switch (Settings.browserName)
-                    //{
-                    //    case BrowserType.Chrome:
-                    //        mainOpts = new ChromeOptions();
-                    //        break;
-                    //    case BrowserType.Edge:
-                    //        mainOpts = new EdgeOptions();
-                    //        break;
-                    //    case BrowserType.Firefox:
-                    //        mainOpts = new FirefoxOptions();
-                    //        break;
-                    //}
-
-                    //Dictionary<string, object> caps = new Dictionary<string, object>();
-                    //caps.Add("os", "Windows");
-                    //caps.Add("os_version", "8");
-
-                    //RemoteSessionSettings caps = new RemoteSessionSettings();
-                    //caps.AddMetadataSetting("os", Settings.os.ToString());
-                    //caps.AddMetadataSetting("osVersion", Settings.osVersion.ToString());
-
-
-                    //mainOpts.AddAdditionalCapability("browser_name", Settings.browserName);
-                    //mainOpts.AddAdditionalCapability("browser_version", Settings.browserVersion);
-                    //mainOpts.AddAdditionalCapability("bstack:options", caps);
-                    //mainOpts.AddAdditionalCapability("os", "Windows");
-                    //mainOpts.AddAdditionalCapability("os_version", "8");
-
-
-                    DesiredCapabilities capability = new DesiredCapabilities();
-                    capability.SetCapability("os", Settings.os.ToString());
-                    capability.SetCapability("os_version", Settings.osVersion.ToString());
-                    capability.SetCapability("browser", Settings.browserName.ToString());
-                    capability.SetCapability("browser_version", Settings.browserVersion.ToString());
-                    capability.SetCapability("browserstack.local", "false");
-                    capability.SetCapability("browserstack.selenium_version", "3.5.2");
-                    capability.SetCapability("browserstack.user", "ilyaorlenko1");
-                    capability.SetCapability("browserstack.key", "b7oqy11UFAU1HrPfUr1v");
-
-
-                    Driver = new RemoteWebDriver(Settings.hubUri, capability);
-                    break;
-
                 case Hub.VM:
+                    switch (Settings.browserName)
+                    {
+                        case BrowserName.Chrome:
+                            options = new ChromeOptions();
+                            break;
+
+                        case BrowserName.Edge:
+                            options = new EdgeOptions();
+                            break;
+
+                        case BrowserName.Firefox:
+                            options = new FirefoxOptions();
+                            break;
+
+                        case BrowserName.IE:
+                            options = new InternetExplorerOptions();
+                            break;
+
+                        case BrowserName.Safari:
+                            options = new SafariOptions();
+                            break;
+                    }
+
+                    // If remote is not virtual machine hub, then add specific options
+                    if (Settings.hub != Hub.VM)
+                    {
+                        options.AddGlobalCapability("browser_version", Settings.browserVersion);
+                        options.AddGlobalCapability("os", Settings.os.ToString());
+                        options.AddGlobalCapability("os_version", Settings.osVersion);
+                    }
+
+                    // Add browser name option for any of remote environments
+                    options.AddGlobalCapability("browser_name", Settings.browserName.ToString());
+
+                    Driver = new RemoteWebDriver(Settings.hubUri, options.ToCapabilities());
+
                     break;
             }
 

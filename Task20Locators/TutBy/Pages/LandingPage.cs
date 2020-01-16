@@ -1,9 +1,9 @@
 ﻿using Helpers.Task20Locators.Base;
 using OpenQA.Selenium;
-using Task20Locators.Base;
-using System;
 using OpenQA.Selenium.Support.UI;
+using System;
 using System.Diagnostics;
+using Task20Locators.Base;
 
 namespace Pages.Task20Locators.TutBy
 {
@@ -85,7 +85,7 @@ namespace Pages.Task20Locators.TutBy
             if (passwordDataset == null)
             {
                 passwordDataset = loginDataset;
-            }                
+            }
 
             WaitFindElement(LoginInputLocator).SendKeys(ExcelReader.GetFromExcel(loginDataset, Field.Login));
             WaitFindElement(PasswordInputLocator).SendKeys(ExcelReader.GetFromExcel((Dataset)passwordDataset, Field.Password));

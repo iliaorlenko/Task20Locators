@@ -9,7 +9,7 @@ namespace Tests.Task20Locators.TutBy
     [TestFixture]
     public class TutByTests : TestBase
     {
-        LandingPage Landing; 
+        LandingPage Landing;
 
         [SetUp]
         public void LoginTestsSetUp()
@@ -45,7 +45,7 @@ namespace Tests.Task20Locators.TutBy
 
         [Test]
         [
-            AllureSubSuite("Login functionality tests"), 
+            AllureSubSuite("Login functionality tests"),
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
             AllureLink("ID-2"),
             AllureTest("Logout from the account"),
@@ -56,7 +56,7 @@ namespace Tests.Task20Locators.TutBy
             Landing.OpenLoginForm()
                 .SubmitLoginForm(Dataset.SecondUser)
                 .Logout();
-            
+
             Assert.True(Landing.EnterLoginFormButton.Displayed, message: "Enter login form button is not displayed.");
         }
 

@@ -11,9 +11,9 @@ namespace Task20Locators.Base
     //[SetUpFixture]
     public class TestBase : AllureReport
     {
-        private static string AllureConfigDir = Path.GetDirectoryName(typeof(AllureLifecycle).Assembly.Location);
+        //private static string AllureConfigDir = Path.GetDirectoryName(typeof(AllureLifecycle).Assembly.Location);
         public static string GetFromExcel(Dataset datasetName, Field field) => ExcelReader.GetFromExcel(datasetName, field);
-        
+
         public static void GoToUrl()
         {
             DriverContext.Driver.Navigate().GoToUrl(Settings.tutByUrl);
@@ -27,8 +27,6 @@ namespace Task20Locators.Base
         [OneTimeSetUp]
         public static void GlobalSetup()
         {
-            //DriverContext.InitializeDriver(BrowserType.Chrome, Environment.Remote, Hub.BrowserStack);
-            //Settings.ReadConfig();
             DriverContext.InitializeDriver();
         }
 
@@ -57,6 +55,7 @@ namespace Task20Locators.Base
 
         public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
 
+        // Method for taking screenshots
         public static void TakeScreenshot()
         {
             string dirName = Settings.baseDir + @"\TutBy\Screenshots\";
