@@ -1,10 +1,10 @@
 {
   "Environment": {
-    "Hub": "Local",
+    "Hub": "Browserstack",
     "OS": "Windows",
     "OsVersion": "8.1",
     "BrowserType": "Chrome",
-    "BrowserVersion": "11"
+    "BrowserVersion": "79"
   },
   "BrowserStackSettings": {
     "User": "ilyaorlenko1",

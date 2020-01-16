@@ -44,6 +44,9 @@
     <Reference Include="Allure, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Noksa.NUnit.Allure.3.0.4\lib\net45\Allure.dll</HintPath>
     </Reference>
+    <Reference Include="Allure.Commons, Version=2.3.64.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Allure.Commons.2.3.64.1\lib\net45\Allure.Commons.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelDataReader, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExcelDataReader.3.6.0\lib\net45\ExcelDataReader.dll</HintPath>
@@ -56,6 +59,9 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="MimeTypesMap, Version=1.0.3.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeTypesMap.1.0.3\lib\net45\MimeTypesMap.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.Engine.3.10.0\lib\net20\Mono.Cecil.dll</HintPath>
@@ -80,6 +86,9 @@
     </Reference>
     <Reference Include="nunit-agent-x86, Version=3.10.0.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\NUnit.Engine.3.10.0\lib\net20\nunit-agent-x86.exe</HintPath>
+    </Reference>
+    <Reference Include="NUnit.Allure, Version=1.0.6.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Allure.1.0.6.2\lib\net45\NUnit.Allure.dll</HintPath>
     </Reference>
     <Reference Include="nunit.engine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.Engine.3.10.0\lib\net20\nunit.engine.dll</HintPath>
