@@ -1,6 +1,6 @@
 {
   "Environment": {
-    "Hub": "Browserstack",
+    "Hub": "VM",
     "OS": "Windows",
     "OsVersion": "8.1",
     "BrowserType": "Chrome",
