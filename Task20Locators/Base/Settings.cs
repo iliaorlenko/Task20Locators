@@ -14,7 +14,7 @@ namespace Task20Locators.Base
 
         public static string tutByMainPage => configuration.TutByUrl;
 
-        public static Environment env;
+        public static Environment? env = null;
         public static Uri hubUri
         {
             get
