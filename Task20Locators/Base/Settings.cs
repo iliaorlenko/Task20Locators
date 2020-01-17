@@ -12,13 +12,9 @@ namespace Task20Locators.Base
         // Deserialized FrameworkConfig.json
         private static Configuration configuration = JsonConvert.DeserializeObject<Configuration>(new StreamReader(baseDir + "/Base/FrameworkConfig.json").ReadToEnd());
 
-        //public static OS os => configuration.Environment.OS;
-        //public static string osVersion => configuration.Environment.OsVersion;
-        //public static BrowserName browserName => configuration.Environment.BrowserType;
-        //public static string browserVersion => configuration.Environment.BrowserVersion;
-        public static string tutByUrl => configuration.TutByUrl;
+        public static string tutByMainPage => configuration.TutByUrl;
 
-        public static Base.Environment env;
+        public static Environment env;
         public static Uri hubUri
         {
             get

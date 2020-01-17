@@ -2,20 +2,12 @@
 using Helpers.Task20Locators.Base;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Safari;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Task20Locators.Base.Helpers;
 
 namespace Task20Locators.Base
 {
-    //[SetUpFixture]
     public class TestBase : AllureReport
     {
         //private static string AllureConfigDir = Path.GetDirectoryName(typeof(AllureLifecycle).Assembly.Location);
@@ -23,7 +15,7 @@ namespace Task20Locators.Base
 
         public static void GoToUrl()
         {
-            DriverContext.Driver.Navigate().GoToUrl(Settings.tutByUrl);
+            DriverContext.Driver.Navigate().GoToUrl(Settings.tutByMainPage);
         }
 
         public void GoToPreviousPage()
@@ -36,17 +28,15 @@ namespace Task20Locators.Base
         {
             string environment = TestContext.Parameters.Get("env", "Local");
             string browserName = TestContext.Parameters.Get("browser", "Chrome");
-            string browserVersion = TestContext.Parameters.Get("brVersion", "79");
-            string os = TestContext.Parameters.Get("os", "Windows");
+            string brVersion = TestContext.Parameters.Get("brVersion", "79");
+            string opSys = TestContext.Parameters.Get("os", "Windows");
             string osVersion = TestContext.Parameters.Get("osVersion", "10");
 
             Environment env = (Environment)Enum.Parse(typeof(Environment), environment, true);
             BrowserName browser = (BrowserName)Enum.Parse(typeof(BrowserName), browserName, true);
-            OS opSys = (OS)Enum.Parse(typeof(OS), os, true);
+            OS os = (OS)Enum.Parse(typeof(OS), opSys, true);
 
-            DriverContext.InitializeDriver(Environment.BrowserStack, browser);
-
-            //DriverContext.InitializeDriver(Environment.BrowserStack, BrowserName.Chrome);
+            DriverContext.InitializeDriver(env, browser, brVersion, os, osVersion);
         }
 
         [OneTimeTearDown]
@@ -59,17 +49,6 @@ namespace Task20Locators.Base
         [SetUp]
         public void TestSetUp()
         {
-            //string environment = TestContext.Parameters.Get("env", "Local");
-            //string browserName = TestContext.Parameters.Get("browser", "Chrome");
-            //string browserVersion = TestContext.Parameters.Get("brVersion", "79");
-            //string os = TestContext.Parameters.Get("os", "Windows");
-            //string osVersion = TestContext.Parameters.Get("osVersion", "10");
-
-            //Environment env = (Environment)Enum.Parse(typeof(Environment), environment, true);
-            //BrowserName browser = (BrowserName)Enum.Parse(typeof(BrowserName), browserName, true);
-            //OS opSys = (OS)Enum.Parse(typeof(OS), os, true);
-
-            //DriverContext.InitializeDriver(env, browser);
         }
 
         [TearDown]
