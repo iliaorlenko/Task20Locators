@@ -87,6 +87,7 @@ namespace Task20Locators.Base
                         options.AddGlobalCapability("browser_version", brVersion);
                         options.AddGlobalCapability("os", os.ToString());
                         options.AddGlobalCapability("os_version", osVersion);
+                        options.AddAdditionalCapability("build", "tutBy");
                     }
 
                     // Add browser name option for any of remote environments

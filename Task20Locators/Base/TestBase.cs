@@ -55,10 +55,10 @@ namespace Task20Locators.Base
         public void TestTearDown()
         {
             // General actions after each test
-            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-            {
-                TakeScreenshot();
-            }
+            //if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            //{
+            //    TakeScreenshot();
+            //}
         }
 
         public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
