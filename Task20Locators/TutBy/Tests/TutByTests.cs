@@ -1,14 +1,19 @@
 ﻿using Allure.NUnit.Attributes;
 using Helpers.Task20Locators.Base;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using Pages.Task20Locators.TutBy;
 using Task20Locators.Base;
 
 namespace Tests.Task20Locators.TutBy
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.Fixtures)]
+    [TestFixtureSource(typeof(TestBase), "RunBrowser")]
     public class TutByTests : TestBase
     {
+        public TutByTests() : base() { }
+
         LandingPage Landing;
 
         [SetUp]
@@ -25,7 +30,7 @@ namespace Tests.Task20Locators.TutBy
             Landing.OpenLandingPage();
         }
 
-        [Test, Description("Login with valid credentials")]
+        [Test, Description("Login with valid credentials"), Parallelizable(ParallelScope.Children)]
         [
             AllureSubSuite("Login functionality tests"),
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
@@ -43,7 +48,7 @@ namespace Tests.Task20Locators.TutBy
             Landing.Logout();
         }
 
-        [Test]
+        [Test, Parallelizable(ParallelScope.Children)]
         [
             AllureSubSuite("Login functionality tests"),
             AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),
@@ -60,7 +65,7 @@ namespace Tests.Task20Locators.TutBy
             Assert.True(Landing.EnterLoginFormButton.Displayed, message: "Enter login form button is not displayed.");
         }
 
-        //[Test]
+        //[Test, Parallelizable(ParallelScope.Children)]
         //[
         //    AllureSubSuite("Login functionality tests"),
         //    AllureSeverity(Allure.Commons.Model.SeverityLevel.Blocker),

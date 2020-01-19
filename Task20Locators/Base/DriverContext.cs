@@ -13,105 +13,151 @@ namespace Task20Locators.Base
     public class DriverContext
     {
         // Driver declaration
-        public static IWebDriver Driver { get; private set; }
+        //private IWebDriver Driver { get; set; }
 
         private static DriverOptions options = null;
+
+        public static Environment? selectedEnvironment = null;
 
         // Variables for Allure
         public static string Browser;
         public static string OS;
 
-        public static void InitializeDriver(Environment env, BrowserName browser, string brVersion = null, OS? os = null, string osVersion = null)
+        public RemoteWebDriver RemoteDriver
         {
-            // Switch hub to know what env is going to be used
+            get
+            {
+                return GetRemoteDriver(Environment.VM, BrowserName.Chrome, "79", Base.OS.Linux, "18.04");
+            }
+        }
+
+        public IWebDriver LocalDriver
+        {
+            get
+            {
+                return GetLocalDriver();
+            }
+            set
+            {
+                LocalDriver = value;
+            }
+        }
+
+        public void SetBrowser()
+        {
+
+        }
+
+        private void SetCapabilities(BrowserName browser, string brVersion, OS os, string osVersion)
+        {
+            options.AddGlobalCapability("browser_name", browser.ToString());
+            options.AddGlobalCapability("browser_version", brVersion);
+            options.AddGlobalCapability("os", os.ToString());
+            options.AddGlobalCapability("os_version", osVersion);
+        }
+
+        public RemoteWebDriver GetRemoteDriver(Environment env, BrowserName browser, string brVersion = null, OS? os = null, string osVersion = null)
+        {
+            RemoteWebDriver remoteDriver = null;
+            DriverOptions options = null;
+            InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+            SafariOptions sfOptions = new SafariOptions();
+
             switch (env)
             {
-                // If local machine, then initialize one of the drivers
                 case Environment.Local:
-                    switch (browser)
-                    {
-                        case BrowserName.Chrome:
-                            Driver = new ChromeDriver();
-                            break;
+                    throw new Exception("Cannot initiate remote driver for local environment");
 
-                        case BrowserName.Edge:
-                            Driver = new EdgeDriver();
-                            break;
-
-                        case BrowserName.Firefox:
-                            Driver = new FirefoxDriver();
-                            break;
-
-                        case BrowserName.IE:
-                            Driver = new InternetExplorerDriver();
-                            break;
-
-                        case BrowserName.Safari:
-                            Driver = new SafariDriver();
-                            break;
-                    }
-                    break;
-
-                // If remote environment, then add browser specific options first, then initialize remote driver
+                case Environment.VM:
                 case Environment.BrowserStack:
                 case Environment.SauceLabs:
-                case Environment.VM:
-                    Settings.env = env;
+                    if (env == Environment.VM && browser != BrowserName.Chrome && browser != BrowserName.Firefox)
+                    {
+                        throw new Exception("Cannot initiate driver for specified browser on VM environment");
+                    }
+
+                    options.AddGlobalCapability("browserVersion", brVersion);
+                    options.AddGlobalCapability("os", os.ToString());
+                    options.AddGlobalCapability("osVersion", osVersion);
+
+                    ieOptions.AddGlobalCapability("browserVersion", brVersion);
+                    ieOptions.AddGlobalCapability("os", os.ToString());
+                    ieOptions.AddGlobalCapability("osVersion", osVersion);
+
+                    sfOptions.AddGlobalCapability("browserVersion", brVersion);
+                    sfOptions.AddGlobalCapability("os", os.ToString());
+                    sfOptions.AddGlobalCapability("osVersion", osVersion);
+
                     switch (browser)
                     {
                         case BrowserName.Chrome:
-                            options = new ChromeOptions();
+                            remoteDriver = new RemoteWebDriver(options = new ChromeOptions());
                             break;
 
                         case BrowserName.Edge:
-                            options = new EdgeOptions();
+                            remoteDriver = new RemoteWebDriver(options = new EdgeOptions());
                             break;
 
                         case BrowserName.Firefox:
-                            options = new FirefoxOptions();
+                            remoteDriver = new RemoteWebDriver(options = new FirefoxOptions());
                             break;
 
                         case BrowserName.IE:
-                            options = new InternetExplorerOptions();
+                            remoteDriver = new RemoteWebDriver(ieOptions);
                             break;
 
                         case BrowserName.Safari:
-                            options = new SafariOptions();
+                            remoteDriver = new RemoteWebDriver(sfOptions);
                             break;
                     }
-
-                    // If remote is not virtual machine hub, then add specific options
-                    if (env != Environment.VM)
-                    {
-                        options.AddGlobalCapability("browser_version", brVersion);
-                        options.AddGlobalCapability("os", os.ToString());
-                        options.AddGlobalCapability("os_version", osVersion);
-                        options.AddAdditionalCapability("build", "tutBy");
-                    }
-
-                    // Add browser name option for any of remote environments
-                    options.AddGlobalCapability("browser_name", browser.ToString());
-
-                    Driver = new RemoteWebDriver(Settings.hubUri, options.ToCapabilities());
-
                     break;
             }
+            return remoteDriver;
+        }
 
-            Driver.Manage().Window.Maximize();
+        public IWebDriver GetLocalDriver(BrowserName browser = BrowserName.Chrome)
+        {
+            IWebDriver driver = null;
+            // If local machine, then initialize one of the drivers
+            switch (browser)
+            {
+                case BrowserName.Chrome:
+                    driver = new ChromeDriver();
+                    break;
 
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+                case BrowserName.Edge:
+                    driver = new EdgeDriver();
+                    break;
+
+                case BrowserName.Firefox:
+                    driver = new FirefoxDriver();
+                    break;
+
+                case BrowserName.IE:
+                    driver = new InternetExplorerDriver();
+                    break;
+
+                case BrowserName.Safari:
+                    throw new Exception("No Safari browser installed on local machine.");
+            }
+
+            driver.Manage().Window.Maximize();
+
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
+
+            return driver;
         }
 
         // Method to enable implicit wait
-        public static void TurnOnImplicitWait(int timeoutInSeconds = 3)
+        public void TurnOnImplicitWait(int timeoutInSeconds = 3)
         {
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
+            LocalDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeoutInSeconds);
         }
 
         // Method to disable implicit wait
-        public static void TurnOffImplicitWait()
+        public void TurnOffImplicitWait()
         {
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
+            LocalDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
         }
     }
 }

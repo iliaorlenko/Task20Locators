@@ -13,6 +13,8 @@ namespace Task20Locators.Base
         private static Configuration configuration = JsonConvert.DeserializeObject<Configuration>(new StreamReader(baseDir + "/Base/FrameworkConfig.json").ReadToEnd());
 
         public static string tutByMainPage => configuration.TutByUrl;
+        public static string chromePort => configuration.ChromePort;
+        public static string firefoxPort => configuration.FirefoxPort;
 
         public static Environment? env = null;
         public static Uri hubUri
@@ -43,6 +45,12 @@ namespace Task20Locators.Base
 
             [JsonProperty("VmUri")]
             public string VmUri { get; set; }
+
+            [JsonProperty("ChromePort")]
+            public string ChromePort { get; set; }
+
+            [JsonProperty("FirefoxPort")]
+            public string FirefoxPort { get; set; }
 
             [JsonProperty("TutByUrl")]
             public string TutByUrl { get; set; }

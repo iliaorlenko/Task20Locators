@@ -5,8 +5,15 @@ namespace Task20Locators.Base
 {
     public class PageBase
     {
-        public static IWebElement FindElement(By locator) => DriverContext.Driver.FindElement(locator);
+        public DriverContext driverContext = new DriverContext();
 
-        public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
+        public IWebElement FindElement(By locator) => driverContext.GetLocalDriver().FindElement(locator);
+
+        public ICollection<IWebElement> FindElements(By locator) => driverContext.LocalDriver.FindElements(locator);
+
+        public void GoToUrl()
+        {
+            driverContext.LocalDriver.Navigate().GoToUrl(Settings.tutByMainPage);
+        }
     }
 }

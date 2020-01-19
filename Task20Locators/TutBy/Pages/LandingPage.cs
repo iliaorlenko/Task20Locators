@@ -22,16 +22,16 @@ namespace Pages.Task20Locators.TutBy
         public IWebElement EnterLoginFormButton => WaitFindElement(EnterLoginFormButtonLocator);
 
         // Method to find element along with explicit wait
-        public static IWebElement WaitFindElement(By locator)
+        public IWebElement WaitFindElement(By locator)
         {
             // Set null as a default value for element expected to return
             IWebElement expectedElement = null;
 
             // Disable implicit wait in order to don't mix with explicit wait 
-            DriverContext.TurnOffImplicitWait();
+            driverContext.TurnOffImplicitWait();
 
             // Initialize instance of explicit wait 
-            WebDriverWait wait = new WebDriverWait(DriverContext.Driver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driverContext.LocalDriver, TimeSpan.FromSeconds(10));
 
             // Set custom polling interval
             wait.PollingInterval = TimeSpan.FromMilliseconds(200);
@@ -41,7 +41,7 @@ namespace Pages.Task20Locators.TutBy
             {
                 try
                 {
-                    expectedElement = DriverContext.Driver.FindElement(locator);
+                    expectedElement = driverContext.LocalDriver.FindElement(locator);
                     return expectedElement.Displayed;
                 }
                 catch (StaleElementReferenceException ex)
@@ -57,7 +57,7 @@ namespace Pages.Task20Locators.TutBy
             });
 
             // Turn implicit wait back on
-            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driverContext.TurnOnImplicitWait();
 
             // Return expected element
             return expectedElement;
@@ -66,7 +66,7 @@ namespace Pages.Task20Locators.TutBy
         // Method to go to tut.by landing page
         public LandingPage OpenLandingPage()
         {
-            TestBase.GoToUrl();
+            GoToUrl();
 
             return new LandingPage();
         }

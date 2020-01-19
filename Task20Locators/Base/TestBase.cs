@@ -8,63 +8,109 @@ using System.IO;
 
 namespace Task20Locators.Base
 {
+    [TestFixture]
     public class TestBase : AllureReport
     {
         //private static string AllureConfigDir = Path.GetDirectoryName(typeof(AllureLifecycle).Assembly.Location);
         public static string GetFromExcel(Dataset datasetName, Field field) => ExcelReader.GetFromExcel(datasetName, field);
 
-        public static void GoToUrl()
+        DriverContext driverContext = new DriverContext();
+
+        IWebDriver driver => driverContext.LocalDriver;
+
+        public static IEnumerable<BrowserName> RunBrowser()
         {
-            DriverContext.Driver.Navigate().GoToUrl(Settings.tutByMainPage);
+            List<BrowserName> browsers = new List<BrowserName>();
+            switch (DriverContext.selectedEnvironment)
+            {
+                case Environment.Local:
+                    browsers.Add(BrowserName.Chrome);
+                    browsers.Add(BrowserName.Edge);
+                    browsers.Add(BrowserName.Firefox);
+                    browsers.Add(BrowserName.IE);
+                    break;
+                case Environment.VM:
+                    browsers.Add(BrowserName.Chrome);
+                    browsers.Add(BrowserName.Firefox);
+                    break;
+                default:
+                    foreach(BrowserName browser in Enum.GetValues(typeof(BrowserName)))
+                    {
+                        browsers.Add(browser);
+                    }
+                    break;
+            }
+
+            foreach (BrowserName browser in browsers)
+            {
+                yield return browser;
+            }
         }
 
         public void GoToPreviousPage()
         {
-            DriverContext.Driver.Navigate().Back();
+            driverContext.LocalDriver.Navigate().Back();
         }
 
         [OneTimeSetUp]
-        public static void GlobalSetup()
+        public void GlobalSetup()
         {
-            string environment = TestContext.Parameters.Get("env", "Local");
-            string browserName = TestContext.Parameters.Get("browser", "Chrome");
-            string brVersion = TestContext.Parameters.Get("brVersion", "79");
-            string opSys = TestContext.Parameters.Get("os", "Windows");
-            string osVersion = TestContext.Parameters.Get("osVersion", "10");
 
-            Environment env = (Environment)Enum.Parse(typeof(Environment), environment, true);
-            BrowserName browser = (BrowserName)Enum.Parse(typeof(BrowserName), browserName, true);
-            OS os = (OS)Enum.Parse(typeof(OS), opSys, true);
-
-            DriverContext.InitializeDriver(env, browser, brVersion, os, osVersion);
         }
 
         [OneTimeTearDown]
-        public static void GlobalTeardown()
+        public void GlobalTeardown()
         {
-            DriverContext.Driver.Close();
-            DriverContext.Driver.Quit();
+            driverContext.LocalDriver.Close();
+            driverContext.LocalDriver.Quit();
         }
 
         [SetUp]
         public void TestSetUp()
         {
+            string environment = TestContext.Parameters.Get("environment", "Local");
+            string browserName = TestContext.Parameters.Get("browser", "Chrome");
+            Environment env = (Environment)Enum.Parse(typeof(Environment), environment, true);
+            BrowserName browser = (BrowserName)Enum.Parse(typeof(BrowserName), browserName, true);
+
+            if(env == Environment.Local)
+            {
+                driverContext.LocalDriver = driverContext.GetLocalDriver(browser);
+                DriverContext.selectedEnvironment = Environment.Local;
+            }
+            else
+            {
+                if(env == Environment.VM)
+                {
+                    driverContext.LocalDriver = driverContext.GetRemoteDriver(Environment.VM, browser);
+                    DriverContext.selectedEnvironment = Environment.VM;
+                }
+                else
+                {
+                    string brVersion = TestContext.Parameters.Get("browserVersion", "79");
+                    string opSys = TestContext.Parameters.Get("os", "Windows");
+                    string osVersion = TestContext.Parameters.Get("osVersion", "10");
+                    OS os = (OS)Enum.Parse(typeof(OS), opSys, true);
+
+                    driverContext.LocalDriver = driverContext.GetRemoteDriver(env, browser, brVersion, os, osVersion);
+                }
+            }
         }
 
         [TearDown]
         public void TestTearDown()
         {
-            // General actions after each test
-            //if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-            //{
-            //    TakeScreenshot();
-            //}
+            //General actions after each test
+            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                TakeScreenshot();
+            }
         }
 
-        public static ICollection<IWebElement> FindElements(By locator) => DriverContext.Driver.FindElements(locator);
+        public ICollection<IWebElement> FindElements(By locator) => driverContext.LocalDriver.FindElements(locator);
 
         // Method for taking screenshots
-        public static void TakeScreenshot()
+        public void TakeScreenshot()
         {
             string dirName = Settings.baseDir + @"\TutBy\Screenshots\";
             string fileName = "Screenshot " + DateTime.Now.ToString("MM-dd-yyy hh_mm_ss tt") + ".png";
@@ -72,7 +118,7 @@ namespace Task20Locators.Base
             if (!Directory.Exists(dirName))
                 Directory.CreateDirectory(dirName);
 
-            Screenshot screenshot = ((ITakesScreenshot)DriverContext.Driver).GetScreenshot();
+            Screenshot screenshot = ((ITakesScreenshot)driverContext.LocalDriver).GetScreenshot();
 
             screenshot.SaveAsFile(dirName + fileName, ScreenshotImageFormat.Png);
         }
