@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
+using Task20Locators.Base;
 
 namespace Helpers.Task20Locators.Base
 {
@@ -10,7 +10,7 @@ namespace Helpers.Task20Locators.Base
     {
         public static IEnumerable GetLoginTestsData()
         {
-            using (StreamReader reader = new StreamReader(Directory.GetParent(Directory.GetParent(Directory.GetParent(AppContext.BaseDirectory).ToString()).ToString()).ToString() + "\\TutBy\\TestData.json"))
+            using (StreamReader reader = new StreamReader(Settings.baseDir + @"\TutBy\TestData.json"))
             {
                 JObject json = JObject.Parse(reader.ReadToEnd());
 

@@ -81,6 +81,7 @@
     <Compile Include="Base\Helpers\ExcelReader.cs" />
     <Compile Include="Base\Helpers\JsonReader.cs" />
     <Compile Include="Base\PageBase.cs" />
+    <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\TestBase.cs" />
     <Compile Include="TutBy\Pages\LandingPage.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
