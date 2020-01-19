@@ -14,7 +14,9 @@ namespace Task20Locators.Base.Helpers
             {
                 case ChromeOptions chromeOptions:
                     chromeOptions.AddAdditionalCapability(capabilityName, capabilityValue, true);
-                    chromeOptions.AddArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
+                    chromeOptions.AddArgument("--headless");
+                    chromeOptions.AddArgument("--no-sandbox");
+                    chromeOptions.AddArgument("--disable-dev-shm-usage");
                     break;
                 case FirefoxOptions firefoxOptions:
                     firefoxOptions.AddAdditionalCapability(capabilityName, capabilityValue, true);

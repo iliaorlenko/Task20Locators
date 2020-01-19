@@ -57,7 +57,6 @@ namespace Task20Locators.Base
                 case Environment.SauceLabs:
                 case Environment.VM:
                     Settings.env = env;
-
                     switch (browser)
                     {
                         case BrowserName.Chrome:

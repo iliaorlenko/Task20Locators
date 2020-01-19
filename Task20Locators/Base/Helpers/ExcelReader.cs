@@ -12,7 +12,7 @@ namespace Helpers.Task20Locators.Base
     public static class ExcelReader
     {
         // Path to the excel file with test data
-        public static string excelPath = Settings.baseDir + @"\TutBy\TrainingTestData.xlsx";
+        public static string excelPath = Settings.baseDir + @"/TutBy/TrainingTestData.xlsx";
 
         // Table name in Excel file
         public static string loginTestsTableName = "LoginTests";
