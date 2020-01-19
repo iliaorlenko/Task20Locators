@@ -5,9 +5,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using ExcelDataReader;
-using Task20Locators.TutBy;
+using Task20Locators.Base;
 
-namespace Task20Locators.Base
+namespace Helpers.Task20Locators.Base
 {
     public static class ExcelReader
     {

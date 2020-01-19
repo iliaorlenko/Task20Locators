@@ -71,18 +71,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alerts\AlertsPageObject.cs" />
-    <Compile Include="Alerts\AlertsTests.cs" />
     <Compile Include="Base\DriverContext.cs" />
-    <Compile Include="Base\ExcelReader.cs" />
-    <Compile Include="Base\JsonReader.cs" />
+    <Compile Include="Base\Helpers\ExcelReader.cs" />
+    <Compile Include="Base\Helpers\JsonReader.cs" />
+    <Compile Include="Base\PageBase.cs" />
     <Compile Include="Base\TestBase.cs" />
-    <Compile Include="Frames\FramesTests.cs" />
-    <Compile Include="Frames\FramesPageObject.cs" />
-    <Compile Include="TutBy\LandingPage.cs">
+    <Compile Include="TutBy\Pages\LandingPage.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="TutBy\TutByTests.cs" />
+    <Compile Include="TutBy\Tests\TutByTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
