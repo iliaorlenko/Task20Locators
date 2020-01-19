@@ -55,6 +55,9 @@
     <Reference Include="nunit3-console">
       <HintPath>..\packages\NUnit.ConsoleRunner.3.10.0\tools\nunit3-console.exe</HintPath>
     </Reference>
+    <Reference Include="SeleniumExtras.PageObjects, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.PageObjects.3.11.0\lib\net45\SeleniumExtras.PageObjects.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -69,20 +72,20 @@
     <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver.Support, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alerts\AlertsPageObject.cs" />
-    <Compile Include="Alerts\AlertsTests.cs" />
     <Compile Include="Base\DriverContext.cs" />
-    <Compile Include="Base\ExcelReader.cs" />
-    <Compile Include="Base\JsonReader.cs" />
+    <Compile Include="Base\Helpers\ExcelReader.cs" />
+    <Compile Include="Base\Helpers\JsonReader.cs" />
+    <Compile Include="Base\PageBase.cs" />
     <Compile Include="Base\TestBase.cs" />
-    <Compile Include="Frames\FramesTests.cs" />
-    <Compile Include="Frames\FramesPageObject.cs" />
-    <Compile Include="TutBy\LandingPage.cs">
+    <Compile Include="TutBy\Pages\LandingPage.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="TutBy\TutByTests.cs" />
+    <Compile Include="TutBy\Tests\TutByTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
